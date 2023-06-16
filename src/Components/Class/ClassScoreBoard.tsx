@@ -1,18 +1,23 @@
 import { Component } from "react";
 import "./styles/score-board.css";
+import { Fish } from "../../types";
 
-const incorrectCount = 0;
-const correctCount = 0;
-const answersLeft = ["trout", "salmon", "tuna", "shark"];
-export class ClassScoreBoard extends Component {
+interface ScoreBoardProps {
+  correctCount: number;
+  incorrectCount: number;
+  fishes: Fish[];
+}
+
+export class ClassScoreBoard extends Component<ScoreBoardProps> {
   render() {
+    const { correctCount, incorrectCount, fishes } = this.props;
     return (
       <div id="score-board">
         <div>Incorrect 🔻: {incorrectCount}</div>
         <div id="choices-left">
-          {answersLeft.map((answer) => (
-            <div key={answer} className="choice">
-              {answer}
+          {fishes.map((fish) => (
+            <div key={fish.name} className="choice">
+              {fish.name}
             </div>
           ))}
         </div>
