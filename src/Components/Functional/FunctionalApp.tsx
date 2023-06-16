@@ -5,7 +5,7 @@ import { Images } from "../../assets/Images";
 import { useState } from "react";
 import { Fish } from "../../types";
 
-const initialFishes: Fish[] = [
+const initialFishes = [
   {
     name: "trout",
     url: Images.trout,
