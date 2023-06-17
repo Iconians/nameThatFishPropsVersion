@@ -11,15 +11,20 @@ interface ScoreBoardProps {
 export function FunctionalScoreBoard({
   correctCount,
   incorrectCount,
-  fishes,
 }: ScoreBoardProps) {
+  const answersLeft = ["trout", "salmon", "tuna", "shark"];
+  const fishLeft = answersLeft.slice(
+    incorrectCount + correctCount,
+    answersLeft.length
+  );
+
   return (
     <div id="score-board">
       <div>Incorrect 🔻: {incorrectCount}</div>
       <div id="choices-left">
-        {fishes.map((fish) => (
-          <div key={fish.name} className="choice">
-            {fish.name}
+        {fishLeft.map((fish) => (
+          <div key={fish} className="choice">
+            {fish}
           </div>
         ))}
       </div>

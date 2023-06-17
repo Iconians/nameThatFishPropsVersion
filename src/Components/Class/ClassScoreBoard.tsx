@@ -9,15 +9,21 @@ interface ScoreBoardProps {
 }
 
 export class ClassScoreBoard extends Component<ScoreBoardProps> {
+  answersLeft = ["trout", "salmon", "tuna", "shark"];
+
   render() {
-    const { correctCount, incorrectCount, fishes } = this.props;
+    const { correctCount, incorrectCount } = this.props;
+    const fishLeft = this.answersLeft.slice(
+      incorrectCount + correctCount,
+      this.answersLeft.length
+    );
     return (
       <div id="score-board">
         <div>Incorrect 🔻: {incorrectCount}</div>
         <div id="choices-left">
-          {fishes.map((fish) => (
-            <div key={fish.name} className="choice">
-              {fish.name}
+          {fishLeft.map((fish) => (
+            <div key={fish} className="choice">
+              {fish}
             </div>
           ))}
         </div>

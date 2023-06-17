@@ -1,23 +1,26 @@
+import { useState } from "react";
 import { Fish } from "../../types";
 import "./styles/game-board.css";
 
 interface GameBoardProps {
-  userOnChange: React.Dispatch<React.SetStateAction<string>>;
-  onSubmit: () => void;
+  onSubmit: (guess: string) => void;
   fishes: Fish[];
-  userInput: string;
 }
 
-export function FunctionalGameBoard({
-  userOnChange,
-  onSubmit,
-  fishes,
-  userInput,
-}: GameBoardProps) {
-  const nextFishToName = fishes[0];
+export function FunctionalGameBoard({ onSubmit, fishes }: GameBoardProps) {
+  const [userInput, setUserInput] = useState("");
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const nextFishToName =
+    fishes[currentImageIndex !== 4 ? currentImageIndex : 0];
 
-  const setUserInput = (e: React.ChangeEvent<HTMLInputElement>) => {
-    userOnChange(e.target.value);
+  const collectUserInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setUserInput(e.target.value);
+  };
+
+  const onClick = () => {
+    onSubmit(userInput);
+    setCurrentImageIndex(currentImageIndex + 1);
+    setUserInput("");
   };
   return (
     <div id="game-board">
@@ -35,9 +38,9 @@ export function FunctionalGameBoard({
           type="text"
           name="fish-guess"
           value={userInput}
-          onChange={setUserInput}
+          onChange={collectUserInput}
         />
-        <input type="submit" onClick={onSubmit} />
+        <input type="submit" onClick={onClick} />
       </form>
     </div>
   );

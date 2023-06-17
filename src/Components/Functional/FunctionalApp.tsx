@@ -3,7 +3,6 @@ import { FunctionalScoreBoard } from "./FunctionalScoreBoard";
 import { FunctionalFinalScore } from "./FunctionalFinalScore";
 import { Images } from "../../assets/Images";
 import { useState } from "react";
-import { Fish } from "../../types";
 
 const initialFishes = [
   {
@@ -25,44 +24,31 @@ const initialFishes = [
 ];
 
 export function FunctionalApp() {
-  const [userInput, setUserInput] = useState("");
-  const [fishes, setFishes] = useState<Fish[]>(initialFishes);
   const [incorrectCount, setIncorrectCount] = useState(0);
   const [correctCount, setCorrectCount] = useState(0);
-  const [correctFish, SetCorrectFish] = useState<string | null>(
-    initialFishes[0].name
-  );
+  const currentCorrectFish = initialFishes[correctCount + incorrectCount]?.name;
+  const fishIndex = correctCount + incorrectCount;
 
-  const formUserInput = () => {
-    if (correctFish === userInput) {
-      const filter = fishes.filter((fish) => fish.name !== userInput);
-      setFishes(filter);
+  const formUserInput = (guess: string) => {
+    if (currentCorrectFish === guess.toLowerCase()) {
       setCorrectCount(correctCount + 1);
-      SetCorrectFish(filter.length ? filter[0].name : null);
-      setUserInput("");
     } else {
-      const filter = fishes.filter((fish) => fish.name !== correctFish);
-      setFishes(filter);
       setIncorrectCount(incorrectCount + 1);
-      SetCorrectFish(filter.length ? filter[0].name : null);
-      setUserInput("");
     }
   };
 
   return (
     <>
-      {fishes.length ? (
+      {fishIndex !== 4 ? (
         <>
           <FunctionalScoreBoard
             correctCount={correctCount}
             incorrectCount={incorrectCount}
-            fishes={fishes}
+            fishes={initialFishes}
           />
           <FunctionalGameBoard
-            userOnChange={setUserInput}
             onSubmit={formUserInput}
-            fishes={fishes}
-            userInput={userInput}
+            fishes={initialFishes}
           />
         </>
       ) : (
