@@ -5,12 +5,13 @@ import { Fish } from "../../types";
 interface GameBoardProps {
   onSubmit: (guess: string) => void;
   fishes: Fish[];
+  currentImageIndex: number;
 }
 
 export class ClassGameBoard extends Component<GameBoardProps> {
   state = {
     userInput: "",
-    currentImageIndex: 0,
+    // currentImageIndex: 0,
   };
 
   collectUserInput = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -18,18 +19,13 @@ export class ClassGameBoard extends Component<GameBoardProps> {
   };
 
   render() {
-    const { onSubmit, fishes } = this.props;
+    const { onSubmit, fishes, currentImageIndex } = this.props;
     const nextFishToName =
-      fishes[
-        this.state.currentImageIndex !== 4 ? this.state.currentImageIndex : 0
-      ];
+      fishes[currentImageIndex !== 4 ? currentImageIndex : 0];
 
     const onClick = () => {
       onSubmit(this.state.userInput);
-      this.setState({
-        currentImageIndex: this.state.currentImageIndex + 1,
-        userInput: "",
-      });
+      this.setState({ userInput: "" });
     };
 
     return (

@@ -5,11 +5,15 @@ import "./styles/game-board.css";
 interface GameBoardProps {
   onSubmit: (guess: string) => void;
   fishes: Fish[];
+  currentImageIndex: number;
 }
 
-export function FunctionalGameBoard({ onSubmit, fishes }: GameBoardProps) {
+export function FunctionalGameBoard({
+  onSubmit,
+  fishes,
+  currentImageIndex,
+}: GameBoardProps) {
   const [userInput, setUserInput] = useState("");
-  const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const nextFishToName =
     fishes[currentImageIndex !== 4 ? currentImageIndex : 0];
 
@@ -19,7 +23,6 @@ export function FunctionalGameBoard({ onSubmit, fishes }: GameBoardProps) {
 
   const onClick = () => {
     onSubmit(userInput);
-    setCurrentImageIndex(currentImageIndex + 1);
     setUserInput("");
   };
   return (

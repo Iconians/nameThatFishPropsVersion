@@ -49,6 +49,7 @@ export function FunctionalApp() {
           <FunctionalGameBoard
             onSubmit={formUserInput}
             fishes={initialFishes}
+            currentImageIndex={fishIndex}
           />
         </>
       ) : (

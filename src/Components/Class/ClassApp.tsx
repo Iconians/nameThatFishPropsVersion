@@ -51,7 +51,11 @@ export class ClassApp extends Component {
               incorrectCount={this.state.incorrectCount}
               fishes={initialFishes}
             />
-            <ClassGameBoard onSubmit={formUserInput} fishes={initialFishes} />
+            <ClassGameBoard
+              onSubmit={formUserInput}
+              fishes={initialFishes}
+              currentImageIndex={fishIndex}
+            />
           </>
         ) : (
           <ClassFinalScore
